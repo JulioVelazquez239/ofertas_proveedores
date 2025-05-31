@@ -1,0 +1,14 @@
+{
+    "admin": {
+        "password": "admin123",
+        "permisos": "all"
+    },
+    "julio": {
+        "password": "julio123",
+        "permisos": {
+            "resul_mayo_1_10.xlsx": [
+                "Purina"
+            ]
+        }
+    }
+}

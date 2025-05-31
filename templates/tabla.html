@@ -1,0 +1,11 @@
+
+<!DOCTYPE html>
+<html>
+<head><title>{{ nombre }}</title></head>
+<body>
+    <h2>Datos de la hoja: {{ nombre }}</h2>
+    {{ tabla | safe }}
+    <br>
+    <a href="{{ url_for('dashboard') }}">Volver al menú</a>
+</body>
+</html>

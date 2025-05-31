@@ -1,0 +1,15 @@
+
+<!DOCTYPE html>
+<html>
+<head><title>{{ archivo }}</title></head>
+<body>
+    <h2>Archivo: {{ archivo }}</h2>
+    <h3>Hojas disponibles:</h3>
+    <ul>
+    {% for hoja in hojas %}
+        <li><a href="{{ url_for('mostrar_hoja', archivo=archivo, hoja=hoja) }}">{{ hoja }}</a></li>
+    {% endfor %}
+    </ul>
+    <a href="{{ url_for('dashboard') }}">Volver al Dashboard</a>
+</body>
+</html>

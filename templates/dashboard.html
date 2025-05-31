@@ -1,0 +1,15 @@
+
+<!DOCTYPE html>
+<html>
+<head><title>Dashboard</title></head>
+<body>
+    <h2>Bienvenido, {{ session.user }}</h2>
+    <h3>Selecciona un archivo para ver sus hojas:</h3>
+    <ul>
+    {% for archivo in archivos %}
+        <li><a href="{{ url_for('ver_archivo', archivo=archivo) }}">{{ archivo }}</a></li>
+    {% endfor %}
+    </ul>
+    <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+</body>
+</html>
