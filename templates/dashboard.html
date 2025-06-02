@@ -1,15 +1,22 @@
-
 <!DOCTYPE html>
-<html>
-<head><title>Dashboard</title></head>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Archivos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
 <body>
-    <h2>Bienvenido, {{ session.user }}</h2>
-    <h3>Selecciona un archivo para ver sus hojas:</h3>
-    <ul>
-    {% for archivo in archivos %}
-        <li><a href="{{ url_for('ver_archivo', archivo=archivo) }}">{{ archivo }}</a></li>
-    {% endfor %}
-    </ul>
-    <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+    <div class="container mt-4">
+        <h3>Bienvenido, {{ session['user'] }}</h3>
+        <a href="{{ url_for('logout') }}" class="btn btn-danger mb-3">Cerrar sesión</a>
+        <h4>Archivos disponibles:</h4>
+        <ul class="list-group">
+            {% for archivo in archivos %}
+                <li class="list-group-item">
+                    <a href="{{ url_for('ver_archivo', archivo=archivo) }}">{{ archivo }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>

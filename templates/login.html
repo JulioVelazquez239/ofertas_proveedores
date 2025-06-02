@@ -1,16 +1,31 @@
-
 <!DOCTYPE html>
-<html>
-<head><title>Login</title></head>
-<body>
-    <h2>Iniciar Sesión</h2>
-    <form method="post">
-        Usuario: <input type="text" name="username"><br>
-        Contraseña: <input type="password" name="password"><br>
-        <input type="submit" value="Entrar">
-    </form>
-    {% if error %}
-    <p style="color:red;">{{ error }}</p>
-    {% endif %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar Sesión</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="card mx-auto" style="max-width: 400px;">
+            <div class="card-body">
+                <h4 class="card-title text-center">Iniciar Sesión</h4>
+                {% if error %}
+                    <div class="alert alert-danger">{{ error }}</div>
+                {% endif %}
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Usuario</label>
+                        <input type="text" class="form-control" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Entrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

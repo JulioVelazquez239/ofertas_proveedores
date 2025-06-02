@@ -66,8 +66,17 @@ def mostrar_hoja(archivo, hoja):
     permisos = session['permisos']
     if permisos != "all" and hoja not in permisos.get(archivo, []):
         return "<h3>No tienes permiso para ver esta hoja.</h3>", 403
+
     df = pd.read_excel(archivo_path, sheet_name=hoja)
-    return render_template('tabla.html', nombre=hoja, tabla=df.to_html(index=False, border=0))
+
+    # Eliminar columnas "Unnamed"
+    df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+
+    # Reemplazar NaN por string vacío
+    df = df.fillna("")
+
+    tabla_html = df.to_html(index=False, classes='table table-bordered table-striped', border=0)
+    return render_template('tabla.html', nombre=hoja, tabla=tabla_html)
 
 @app.route('/logout')
 def logout():
