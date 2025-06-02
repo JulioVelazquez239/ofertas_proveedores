@@ -1,6 +1,6 @@
 {
-  "admin": {
-    "password": "admin",
-    "permisos": "all"
-  }
+    "admin": {
+        "password": "admin",
+        "permisos": "all"
+    }
 }

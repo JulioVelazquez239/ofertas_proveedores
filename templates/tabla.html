@@ -1,16 +1,14 @@
-<!DOCTYPE html>
-<html>
+
+<!doctype html>
+<html lang="es">
 <head>
-  <title>{{ nombre }}</title>
-  <style>
-    table { border-collapse: collapse; width: 100%; }
-    th, td { border: 1px solid black; padding: 4px; text-align: left; }
-  </style>
+    <meta charset="utf-8">
+    <title>{{ nombre }}</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <h2>{{ nombre }}</h2>
-  {{ tabla | safe }}
-  <br>
-  <a href="{{ url_for('dashboard') }}">Volver</a>
+    <h2>{{ nombre }}</h2>
+    {{ tabla | safe }}
+    <a href="{{ url_for('dashboard') }}">Volver al dashboard</a>
 </body>
 </html>
