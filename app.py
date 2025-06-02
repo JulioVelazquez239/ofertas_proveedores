@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, request, redirect, url_for, session
 import pandas as pd
 import json
@@ -66,8 +67,8 @@ def mostrar_hoja(archivo, hoja):
     if permisos != "all" and hoja not in permisos.get(archivo, []):
         return "<h3>No tienes permiso para ver esta hoja.</h3>", 403
     df = pd.read_excel(archivo_path, sheet_name=hoja, dtype=str)
-    df = df.dropna(axis=1, how='all').dropna(axis=0, how='all')
-    df.columns = [col if not str(col).startswith("Unnamed") else "" for col in df.columns]
+    df = df.fillna("").copy()
+    df.columns = ["" if "Unnamed" in str(col) else col for col in df.columns]
     return render_template('tabla.html', nombre=hoja, tabla=df.to_html(index=False, border=0, escape=False))
 
 @app.route('/logout')
