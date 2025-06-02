@@ -1,13 +1,18 @@
 
 <!DOCTYPE html>
-<html>
-<head><title>Panel</title></head>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+</head>
 <body>
-<h2>Archivos disponibles</h2>
-<ul>
+    <h2>Bienvenido {{ session['user'] }}</h2>
+    <h3>Selecciona un archivo</h3>
+    <ul>
     {% for archivo in archivos %}
-    <li><a href="{{ url_for('ver_archivo', archivo=archivo) }}">{{ archivo }}</a></li>
+        <li><a href="{{ url_for('ver_archivo', archivo=archivo) }}">{{ archivo }}</a></li>
     {% endfor %}
-</ul>
+    </ul>
+    <a href="{{ url_for('logout') }}">Cerrar sesión</a>
 </body>
 </html>

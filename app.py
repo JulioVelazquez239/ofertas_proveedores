@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, send_file
 import pandas as pd
 import json
 import os
@@ -13,17 +13,6 @@ usuarios_file = 'usuarios.json'
 def cargar_usuarios():
     with open(usuarios_file, 'r') as f:
         return json.load(f)
-
-def guardar_usuarios(usuarios):
-    with open(usuarios_file, 'w') as f:
-        json.dump(usuarios, f, indent=4)
-
-@app.template_filter('formato_numero')
-def formato_numero(value):
-    try:
-        return f"{float(value):,.2f}"
-    except:
-        return value
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -51,8 +40,6 @@ def ver_archivo(archivo):
     if 'user' not in session:
         return redirect(url_for('login'))
     archivo_path = os.path.join(carpeta_excel, archivo)
-    if not os.path.exists(archivo_path):
-        return "<h3>Archivo no encontrado</h3>", 404
     xls = pd.ExcelFile(archivo_path)
     hojas = xls.sheet_names
     permisos = session['permisos']
@@ -68,15 +55,22 @@ def mostrar_hoja(archivo, hoja):
     if 'user' not in session:
         return redirect(url_for('login'))
     archivo_path = os.path.join(carpeta_excel, archivo)
-    if not os.path.exists(archivo_path):
-        return "<h3>Archivo no encontrado</h3>", 404
     permisos = session['permisos']
     if permisos != "all" and hoja not in permisos.get(archivo, []):
         return "<h3>No tienes permiso para ver esta hoja.</h3>", 403
     df = pd.read_excel(archivo_path, sheet_name=hoja)
-    df = df.dropna(how='all')  # Eliminar filas vacías
-    df.columns = ["" if "Unnamed" in str(col) else col for col in df.columns]
-    return render_template('tabla.html', nombre=hoja, tabla=df.to_dict(orient='records'), columnas=df.columns)
+    df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+    df = df.fillna('')
+    formatted_df = df.applymap(lambda x: f"{x:,.2f}" if isinstance(x, (int, float)) else x)
+    return render_template('tabla.html', nombre=hoja, tabla=formatted_df.to_html(index=False, border=0), archivo=archivo)
+
+@app.route('/descargar/<archivo>/<hoja>')
+def descargar_hoja(archivo, hoja):
+    archivo_path = os.path.join(carpeta_excel, archivo)
+    df = pd.read_excel(archivo_path, sheet_name=hoja)
+    output_path = os.path.join("archivos_excel", f"{hoja}.xlsx")
+    df.to_excel(output_path, index=False)
+    return send_file(output_path, as_attachment=True)
 
 @app.route('/logout')
 def logout():
