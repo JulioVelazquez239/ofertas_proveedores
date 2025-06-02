@@ -1,13 +1,14 @@
 
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="es">
 <head>
-    <meta charset="utf-8">
-    <title>{{ nombre }}</title>
-    <link rel="stylesheet" href="/static/style.css">
+<meta charset="utf-8"/>
+<title>{{ nombre }}</title>
+<link href="/static/style.css" rel="stylesheet"/>
 </head>
-<body>
-    <h2>{{ nombre }}</h2>
+<body><img src="/static/logo.jpg" style="width:150px; display:block; margin:auto;"/>
+<h2>{{ nombre }}</h2>
     {{ tabla | safe }}
     <a href="{{ url_for('dashboard') }}">Volver al dashboard</a>
 </body>
