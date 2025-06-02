@@ -1,16 +1,34 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-  <title>{{ nombre }}</title>
-  <style>
-    table { border-collapse: collapse; width: 100%; }
-    th, td { border: 1px solid black; padding: 4px; text-align: left; }
-  </style>
+    <title>{{ nombre }}</title>
+    <style>
+        table { width: 100%%; border-collapse: collapse; font-family: Arial; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: right; }
+        th { background-color: #f2f2f2; }
+        td:first-child, th:first-child { text-align: left; }
+    </style>
 </head>
 <body>
-  <h2>{{ nombre }}</h2>
-  {{ tabla | safe }}
-  <br>
-  <a href="{{ url_for('dashboard') }}">Volver</a>
+    <h2>{{ nombre }}</h2>
+    <table>
+        <thead>
+            <tr>
+                {% for col in columnas %}
+                    <th>{{ col }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in tabla %}
+                <tr>
+                    {% for col in columnas %}
+                        <td>{{ row[col]|formato_numero }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>

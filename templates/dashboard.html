@@ -1,13 +1,13 @@
+
 <!DOCTYPE html>
 <html>
-<head><title>Dashboard</title></head>
+<head><title>Panel</title></head>
 <body>
-  <h2>Bienvenido</h2>
-  <ul>
+<h2>Archivos disponibles</h2>
+<ul>
     {% for archivo in archivos %}
-      <li><a href="{{ url_for('ver_archivo', archivo=archivo) }}">{{ archivo }}</a></li>
+    <li><a href="{{ url_for('ver_archivo', archivo=archivo) }}">{{ archivo }}</a></li>
     {% endfor %}
-  </ul>
-  <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+</ul>
 </body>
 </html>

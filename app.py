@@ -18,6 +18,13 @@ def guardar_usuarios(usuarios):
     with open(usuarios_file, 'w') as f:
         json.dump(usuarios, f, indent=4)
 
+@app.template_filter('formato_numero')
+def formato_numero(value):
+    try:
+        return f"{float(value):,.2f}"
+    except:
+        return value
+
 @app.route('/', methods=['GET', 'POST'])
 def login():
     usuarios = cargar_usuarios()
@@ -66,10 +73,10 @@ def mostrar_hoja(archivo, hoja):
     permisos = session['permisos']
     if permisos != "all" and hoja not in permisos.get(archivo, []):
         return "<h3>No tienes permiso para ver esta hoja.</h3>", 403
-    df = pd.read_excel(archivo_path, sheet_name=hoja, dtype=str)
-    df = df.fillna("").copy()
+    df = pd.read_excel(archivo_path, sheet_name=hoja)
+    df = df.dropna(how='all')  # Eliminar filas vacías
     df.columns = ["" if "Unnamed" in str(col) else col for col in df.columns]
-    return render_template('tabla.html', nombre=hoja, tabla=df.to_html(index=False, border=0, escape=False))
+    return render_template('tabla.html', nombre=hoja, tabla=df.to_dict(orient='records'), columnas=df.columns)
 
 @app.route('/logout')
 def logout():

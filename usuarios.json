@@ -1,6 +1,14 @@
 {
-  "admin": {
-    "password": "admin",
-    "permisos": "all"
-  }
+    "admin": {
+        "password": "1234",
+        "permisos": "all"
+    },
+    "purina": {
+        "password": "1234",
+        "permisos": {
+            "archivo_demo.xlsx": [
+                "Hoja1"
+            ]
+        }
+    }
 }
