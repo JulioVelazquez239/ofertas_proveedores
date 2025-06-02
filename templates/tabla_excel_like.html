@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Hoja: {{ nombre }}</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    td, th {
+      border: 1px solid #ddd;
+      padding: 6px;
+    }
+    tr:nth-child(even){background-color: #f2f2f2;}
+    th {
+      background-color: #dddddd;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+<h2>Hoja: {{ nombre }}</h2>
+<a href="{{ url_for('dashboard') }}">Volver al dashboard</a>
+<br><br>
+{{ tabla|safe }}
+</body>
+</html>
