@@ -1,13 +1,13 @@
-<!doctype html>
-<html lang="es">
-<head><meta charset="UTF-8"><title>Seleccionar hoja</title></head>
+<!DOCTYPE html>
+<html>
+<head><title>Hojas</title></head>
 <body>
-<h2>Archivo: {{ archivo }}</h2>
-<ul>
-  {% for hoja in hojas %}
-    <li><a href="{{ url_for('mostrar_hoja', archivo=archivo, hoja=hoja) }}">{{ hoja }}</a></li>
-  {% endfor %}
-</ul>
-<a href="{{ url_for('dashboard') }}">Volver</a>
+  <h2>Selecciona una hoja</h2>
+  <ul>
+    {% for hoja in hojas %}
+      <li><a href="{{ url_for('mostrar_hoja', archivo=archivo, hoja=hoja) }}">{{ hoja }}</a></li>
+    {% endfor %}
+  </ul>
+  <a href="{{ url_for('dashboard') }}">Volver al Dashboard</a>
 </body>
 </html>
